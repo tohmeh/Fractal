@@ -35,7 +35,7 @@ Below are some images showcasing different variations of the Julia set:
 
 1. **Main Julia Set (c = 0.4 + 0.4i)**
 
-   ![Julia Set 1](juilia1.png)
+   ![Julia Set 1](julia1.png)
 
 2. **Julia Set with Variation of c**
 
