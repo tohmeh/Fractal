@@ -18,7 +18,7 @@ To run this project, you'll need to clone the repository along with the MiniLibX
 ### Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/fractol
+    git clone https://github.com/tohmeh/Fractal
     cd fractol
     ```
 2. Clone the MiniLibX library into the fractal directory:
