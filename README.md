@@ -35,7 +35,7 @@ Below are some images showcasing different variations of the Julia set:
 
 1. **Main Julia Set (c = 0.4 + 0.4i)**
 
-   ![Julia Set 1](julia1.png)
+   ![Julia Set 1](juilia1.png)
 
 2. **Julia Set with Variation of c**
 
@@ -56,5 +56,5 @@ Below are some images showcasing different variations of the Julia set:
 ## Usage
 Once compiled, you can run the program with the following commands:
 
-- To visualize the Mandelbrot set: `./fractol mandelbrot`
-- To visualize the Julia set: `./fractol julia 0.4 0.4` (You can replace `0.4 0.4` with different parameters to explore other variations.)
+- To visualize the Mandelbrot set: `./fractol 1`
+- To visualize the Julia set: `./fractol 2 0.4 0.4` (You can replace `0.4 0.4` with different parameters to explore other variations.)
