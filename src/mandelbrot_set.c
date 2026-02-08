@@ -14,30 +14,30 @@
 
 void	draw_mandelbrot(t_data *data, t_fractal *fract, int max_itrs)
 {
-	t_scales	scales;
-	t_var		var;
-	t_complex	c;
-	int			itrs;
+	double	x_scale;
+	double	y_scale;
+	int		i;
 
-	scales.x_scale = (fract->x_max - fract->x_min) / WIDTH;
-	scales.y_scale = (fract->y_max - fract->y_min) / HEIGHT;
-	var.i = 0;
-	while (var.i < WIDTH)
+	x_scale = (fract->x_max - fract->x_min) / WIDTH;
+	y_scale = (fract->y_max - fract->y_min) / HEIGHT;
+	#pragma omp parallel for schedule(dynamic, 4)
+	for (i = 0; i < WIDTH; i++)
 	{
-		var.j = 0;
-		while (var.j < HEIGHT)
+		int			j;
+		t_complex	c;
+		int			itrs;
+
+		for (j = 0; j < HEIGHT; j++)
 		{
-			c.real = fract->x_min + var.i * scales.x_scale;
-			c.im = fract->y_min + var.j * scales.y_scale;
+			c.real = fract->x_min + i * x_scale;
+			c.im = fract->y_min + j * y_scale;
 			itrs = belong_to_mandelbrot(c, max_itrs);
 			if (itrs < max_itrs)
-				ft_put_pixel(data, var.i, var.j,
+				ft_put_pixel(data, i, j,
 					(0xA0E7FF - 0xE0F7FF) * itrs / HEIGHT + 0xE0F7FF);
 			else
-				ft_put_pixel(data, var.i, var.j, 0xA0FFCC);
-			var.j++;
+				ft_put_pixel(data, i, j, 0xA0FFCC);
 		}
-		var.i++;
 	}
 }
 

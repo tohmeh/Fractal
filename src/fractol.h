@@ -21,8 +21,8 @@
 # include <X11/Xlib.h>
 # include "../LIBFT/include/LIBFT.h"
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 500
+# define HEIGHT 500
 # define MAX_ITER 1000
 
 # define DEFAULT_XMIN -2
@@ -147,5 +147,6 @@ void		move_julia(t_fractal *fract, double real_offset, double im_offset);
 void		change_iterations(t_fractal *fract, int increment);
 void		move_fractal(t_fractal *fract, int x, int y);
 void		redraw_fractal(t_fractal *fract);
+void		zoom_to_mouse(t_fractal *fract, int mouse_x, int mouse_y, int indicator);
 
 #endif

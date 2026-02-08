@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Ofast -flto -march=native -funroll-loops -fno-plt -fstrict-aliasing -Wall -Wextra -Werror -I./minilibx-linux -g
-LDFLAGS = -L./minilibx-linux -lmlx -lX11 -lXext -lm
+CFLAGS = -Ofast -flto -march=native -funroll-loops -fno-plt -fstrict-aliasing -fopenmp -Wall -Wextra -Werror -I./minilibx-linux -g
+LDFLAGS = -L./minilibx-linux -lmlx -lX11 -lXext -lm -fopenmp
 
 NAME = fractol
 SRCSDIR = src
@@ -37,7 +37,7 @@ $(NAME): $(OBJS) $(LIBFT_LIB) $(MLX_LIB)
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
-$(OBJDIR)/%.o: $(SRCSDIR)/%.c | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCSDIR)/%.c $(SRCSDIR)/fractol.h | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

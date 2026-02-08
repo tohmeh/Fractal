@@ -69,3 +69,29 @@ void	change_iterations(t_fractal *fract, int increment)
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window_ptr,
 		fract->img.img, 0, 0);
 }
+
+void	zoom_to_mouse(t_fractal *fract, int mouse_x, int mouse_y, int indicator)
+{
+	double	mouse_re;
+	double	mouse_im;
+	double	interpolation;
+
+	mouse_re = fract->x_min + ((double)mouse_x / (double)WIDTH)
+		* (fract->x_max - fract->x_min);
+	mouse_im = fract->y_min + ((double)mouse_y / (double)HEIGHT)
+		* (fract->y_max - fract->y_min);
+	if (indicator == 1)
+		interpolation = 0.99;
+	else
+		interpolation = 1.01;
+	fract->x_min = mouse_re + (fract->x_min - mouse_re) * interpolation;
+	fract->x_max = mouse_re + (fract->x_max - mouse_re) * interpolation;
+	fract->y_min = mouse_im + (fract->y_min - mouse_im) * interpolation;
+	fract->y_max = mouse_im + (fract->y_max - mouse_im) * interpolation;
+	if (fract->index == 1)
+		draw_mandelbrot(&fract->img, fract, fract->max_iterations);
+	else
+		draw_julia_set(&fract->img, fract, fract->max_iterations);
+	mlx_put_image_to_window(fract->mlx_ptr,
+		fract->window_ptr, fract->img.img, 0, 0);
+}

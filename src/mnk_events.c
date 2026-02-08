@@ -12,6 +12,20 @@
 
 #include "fractol.h"
 
+int	loop_hook(t_fractal *fract)
+{
+	static int	frame = 0;
+
+	if (fract->mouse_press && ++frame >= 500)
+	{
+		zoom_to_mouse(fract, fract->last_x_move, fract->last_y_move, 1);
+		frame = 0;
+	}
+	if (!fract->mouse_press)
+		frame = 0;
+	return (0);
+}
+
 void	setup_hooks(t_fractal *fract)
 {
 	mlx_put_image_to_window(fract->mlx_ptr, fract->window_ptr,
@@ -23,6 +37,7 @@ void	setup_hooks(t_fractal *fract)
 	mlx_mouse_hook(fract->window_ptr, mouse_press, fract);
 	mlx_hook(fract->window_ptr, 6, PointerMotionMask, mouse_move, fract);
 	mlx_hook(fract->window_ptr, 5, 1L << 3, mouse_release, fract);
+	mlx_loop_hook(fract->mlx_ptr, loop_hook, fract);
 	mlx_loop(fract->mlx_ptr);
 }
 
@@ -74,16 +89,7 @@ int	mouse_release(int button, int x, int y, t_fractal *fract)
 
 int	mouse_move(int x, int y, t_fractal *fract)
 {
-	static int	count = 0;
-
-	if (!fract->mouse_press)
-		return (0);
-	if (count >= 3)
-	{
-		move_fractal(fract, x, y);
-		redraw_fractal(fract);
-		count = 0;
-	}
-	count++;
+	fract->last_x_move = x;
+	fract->last_y_move = y;
 	return (0);
 }

@@ -52,26 +52,28 @@ int	get_color(int iteration, int max_iterations)
 
 void	draw_julia_set(t_data *data, t_fractal *fract, int max_itrs)
 {
-	t_scales	scales;
-	t_var		var;
-	t_complex	z;
-	int			itrs;
+	double	x_scale;
+	double	y_scale;
+	int		i;
 
-	scales.x_scale = (fract->x_max - fract->x_min) / WIDTH;
-	scales.y_scale = (fract->y_max - fract->y_min) / HEIGHT;
-	var.i = -1;
-	while (++var.i < WIDTH)
+	x_scale = (fract->x_max - fract->x_min) / WIDTH;
+	y_scale = (fract->y_max - fract->y_min) / HEIGHT;
+	#pragma omp parallel for schedule(dynamic, 4)
+	for (i = 0; i < WIDTH; i++)
 	{
-		var.j = -1;
-		while (++var.j < HEIGHT)
+		int			j;
+		t_complex	z;
+		int			itrs;
+
+		for (j = 0; j < HEIGHT; j++)
 		{
-			z.real = fract->x_min + var.i * scales.x_scale;
-			z.im = fract->y_min + var.j * scales.y_scale;
+			z.real = fract->x_min + i * x_scale;
+			z.im = fract->y_min + j * y_scale;
 			itrs = belong_to_julia(z, data->c, max_itrs);
 			if (itrs < max_itrs)
-				ft_put_pixel(data, var.i, var.j, get_color(itrs, max_itrs));
+				ft_put_pixel(data, i, j, get_color(itrs, max_itrs));
 			else
-				ft_put_pixel(data, var.i, var.j, 0x0A67BC);
+				ft_put_pixel(data, i, j, 0x0A67BC);
 		}
 	}
 }
