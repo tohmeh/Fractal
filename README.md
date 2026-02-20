@@ -1,60 +1,51 @@
-# Fractal Visualization Tool
+# Fractal
 
-## Description
-This project is a fractal visualization tool implemented in C using the MiniLibX library. It allows you to explore the intricate patterns of famous fractals like the Mandelbrot and Julia sets. The program includes interactive features such as zooming, panning, and color customization to enhance the visual experience.
+An interactive fractal explorer written in C that renders the Mandelbrot and Julia sets in a live window you can zoom, pan, and recolor in real time.
 
 ## Features
-- **Mandelbrot Set**: Explore the famous Mandelbrot set with dynamic zooming and panning.
-- **Julia Set**: Visualize the Julia set with different parameters and iterations.
-- **Interactive Controls**: Customize the view with zoom, pan, and color options.
+
+- Renders the Mandelbrot and Julia sets at up to 1000 iterations
+- Zoom centered on the mouse cursor with the scroll wheel
+- Click and drag to pan across the complex plane
+- Adjust the Julia set constant interactively to morph its shape
+- Increase or decrease iteration depth on the fly to reveal finer detail
 
 ## Getting Started
-To run this project, you'll need to clone the repository along with the MiniLibX library, and then compile the program.
 
-### Prerequisites
-- GCC compiler
-- MiniLibX library (included in the LIBFT directory)
+```bash
+git clone https://github.com/tohmeh/Fractal
+cd Fractal
+git clone https://github.com/42Paris/minilibx-linux
+make
+```
 
-### Installation
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/tohmeh/Fractal
-    cd fractol
-    ```
-2. Clone the MiniLibX library into the fractal directory:
-    ```bash
-    git clone https://github.com/42Paris/minilibx-linux
-    ```
-3. Compile the project using the provided Makefile:
-    ```bash
-    make
-    ```
+Run the Mandelbrot set:
+```bash
+./fractol 1
+```
+
+Run the Julia set (replace the two numbers with any real and imaginary parts):
+```bash
+./fractol 2 0.4 0.4
+```
+
+## Project Structure
+
+```
+Fractal/
+├── src/          # Renderer, fractal math, event handling, input parsing
+├── LIBFT/        # Bundled C utility library (strings, memory, printf, gnl)
+└── makefile
+```
 
 ## Screenshots
-Below are some images showcasing different variations of the Julia set:
 
-1. **Main Julia Set (c = 0.4 + 0.4i)**
+![Julia Set 1](julia1.png)
 
-   ![Julia Set 1](julia1.png)
+![Julia Set 2](julia2.png)
 
-2. **Julia Set with Variation of c**
+![Julia Set 3](julia3.png)
 
-   ![Julia Set 2](julia2.png)
-
-3. **Julia Set with Increased Iterations**
-
-   ![Julia Set 3](julia3.png)
-
-4. **Zoomed-In Julia Set**
-
-   ![Julia Set 4](julia4.png)
-
-## Mandelbrot Set Example
+![Julia Set 4](julia4.png)
 
 ![Mandelbrot Set](mandelbrot.png)
-
-## Usage
-Once compiled, you can run the program with the following commands:
-
-- To visualize the Mandelbrot set: `./fractol 1`
-- To visualize the Julia set: `./fractol 2 0.4 0.4` (You can replace `0.4 0.4` with different parameters to explore other variations.)
